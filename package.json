@@ -1,0 +1,17 @@
+{
+  "name": "viral-videos-2",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render CubeVideo test.mp4 --gl=angle --browser-executable=/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell"
+  },
+  "dependencies": {
+    "@react-three/fiber": "^9.8.2",
+    "@remotion/cli": "^4.0.545",
+    "@remotion/three": "^4.0.545",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.545",
+    "three": "^0.170.0"
+  }
+}
