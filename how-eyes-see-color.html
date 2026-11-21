@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Eyes See Color</title>
+<style>
+  :root{
+    --bg:#1b0b3f; --bg2:#2a1060; --ink:#f6efff; --muted:#b9a6e6;
+    --mint:#6ff5c8; --pink:#ff6fae; --yellow:#ffd76a; --lav:#a99bff;
+  }
+  html,body{margin:0;height:100%;background:#0c0520;overflow:hidden}
+  #wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  #stage{width:1080px;height:1920px;flex:none;transform-origin:center center;cursor:pointer}
+  svg{display:block}
+  text{font-family:"Poppins","Avenir Next","Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+  #hint{transition:opacity 1s;position:fixed;bottom:10px;left:0;right:0;text-align:center;color:#7d6aa8;
+        font:13px system-ui,sans-serif;pointer-events:none}
+</style>
+</head>
+<body>
+<div id="wrap"><div id="stage">
+<svg id="svg" width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#34137a"/>
+      <stop offset="0.55" stop-color="#1f0c4a"/>
+      <stop offset="1" stop-color="#12062e"/>
+    </radialGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glowBig" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="22" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+    <linearGradient id="beamWhite" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff6c9"/><stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+    <clipPath id="eyeClip"><path d="M180 1090 Q360 960 540 1090 Q360 1220 180 1090 Z"/></clipPath>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bgGrad)"/>
+  <!-- ambient dots -->
+  <g id="stars" opacity="0.55"></g>
+
+  <g id="all">
+    <!-- TITLE -->
+    <g id="title">
+      <text x="540" y="200" text-anchor="middle" font-size="86" font-weight="800" fill="var(--ink)">How your eyes</text>
+      <text x="540" y="295" text-anchor="middle" font-size="86" font-weight="800" fill="var(--ink)">see <tspan fill="var(--pink)">c</tspan><tspan fill="var(--yellow)">o</tspan><tspan fill="var(--mint)">l</tspan><tspan fill="var(--lav)">o</tspan><tspan fill="var(--pink)">r</tspan></text>
+    </g>
+
+    <!-- faint guide paths -->
+    <g fill="none" stroke-linecap="round" opacity="0.18" stroke-dasharray="2 18" stroke-width="6">
+      <path d="M245 440 L505 530" stroke="#fff"/>
+      <path d="M700 620 C900 720, 640 900, 420 1080" stroke="var(--pink)"/>
+      <path d="M940 1100 C1060 1250, 1000 1470, 640 1560" stroke="var(--mint)"/>
+    </g>
+
+    <!-- STEP 1: light + apple -->
+    <g id="sun" transform="translate(190 420)">
+      <g id="sunRays" stroke="var(--yellow)" stroke-width="10" stroke-linecap="round" filter="url(#glow)">
+        <line x1="0" y1="-82" x2="0" y2="-104"/><line x1="0" y1="82" x2="0" y2="104"/>
+        <line x1="-82" y1="0" x2="-104" y2="0"/><line x1="82" y1="0" x2="104" y2="0"/>
+        <line x1="58" y1="58" x2="74" y2="74"/><line x1="-58" y1="-58" x2="-74" y2="-74"/>
+        <line x1="58" y1="-58" x2="74" y2="-74"/><line x1="-58" y1="58" x2="-74" y2="74"/>
+      </g>
+      <circle r="60" fill="var(--yellow)" filter="url(#glow)"/>
+      <circle r="40" fill="#fff4c4" opacity="0.7"/>
+    </g>
+
+    <path id="beam1" d="M245 440 L505 530" fill="none" stroke="url(#beamWhite)" stroke-width="16" stroke-linecap="round" filter="url(#glow)"/>
+    <g id="tagWhite"></g>
+
+    <g id="apple" transform="translate(600 570)">
+      <circle id="appleHalo" r="150" fill="var(--pink)" opacity="0" filter="url(#glowBig)"/>
+      <path d="M0 -78 C-40 -112 -118 -96 -118 -10 C-118 70 -60 120 -24 112 C-10 108 10 108 24 112 C60 120 118 70 118 -10 C118 -96 40 -112 0 -78 Z"
+            fill="#ff4f8b" filter="url(#glow)"/>
+      <ellipse cx="-52" cy="-30" rx="18" ry="30" fill="#ffd0e3" opacity="0.6" transform="rotate(20 -52 -30)"/>
+      <rect x="-6" y="-120" width="12" height="44" rx="6" fill="#c98a5a"/>
+      <path d="M8 -104 C30 -140 72 -136 80 -120 C60 -96 24 -96 8 -104 Z" fill="var(--mint)" filter="url(#glow)"/>
+    </g>
+
+    <!-- STEP 2: eye + cones -->
+    <path id="beam2" d="M700 620 C900 720, 640 900, 420 1080" fill="none" stroke="var(--pink)" stroke-width="16" stroke-linecap="round" filter="url(#glow)"/>
+    <g id="tagNm"></g>
+
+    <g id="eye">
+      <path d="M180 1090 Q360 960 540 1090 Q360 1220 180 1090 Z" fill="#f6efff" filter="url(#glow)"/>
+      <g clip-path="url(#eyeClip)">
+        <circle id="iris" cx="360" cy="1090" r="70" fill="var(--mint)"/>
+        <circle cx="360" cy="1090" r="34" fill="#170838"/>
+        <circle id="pupilFlash" cx="360" cy="1090" r="34" fill="var(--pink)" opacity="0"/>
+        <circle cx="338" cy="1068" r="12" fill="#fff" opacity="0.9"/>
+      </g>
+      <path d="M180 1090 Q360 960 540 1090 Q360 1220 180 1090 Z" fill="none" stroke="var(--lav)" stroke-width="6"/>
+    </g>
+
+    <g id="cones">
+      <rect x="660" y="960" width="280" height="250" rx="40" fill="#2b1464" stroke="#4b2a92" stroke-width="3"/>
+      <rect id="barS" x="695" y="1150" width="56" height="10" rx="28" fill="var(--lav)" filter="url(#glow)"/>
+      <rect id="barM" x="772" y="1150" width="56" height="10" rx="28" fill="var(--mint)" filter="url(#glow)"/>
+      <rect id="barL" x="849" y="1150" width="56" height="10" rx="28" fill="var(--pink)" filter="url(#glow)"/>
+      <g font-size="30" font-weight="800" text-anchor="middle" fill="var(--ink)">
+        <text x="723" y="1196">S</text><text x="800" y="1196">M</text><text x="877" y="1196">L</text>
+      </g>
+      <text x="800" y="945" font-size="26" font-weight="700" text-anchor="middle" fill="var(--muted)" letter-spacing="3">CONE SIGNAL</text>
+    </g>
+
+    <!-- STEP 3: nerve + brain -->
+    <path id="beam3" d="M940 1100 C1060 1250, 1000 1470, 640 1560" fill="none" stroke="var(--mint)" stroke-width="12" stroke-linecap="round" filter="url(#glow)"/>
+    <g id="pulses"></g>
+    <g id="tagNerve"></g>
+
+    <g id="brain" transform="translate(440 1575)">
+      <ellipse id="brainHalo" rx="200" ry="150" fill="var(--mint)" opacity="0" filter="url(#glowBig)"/>
+      <g fill="#ff8fc0" filter="url(#glow)">
+        <circle cx="-95" cy="-10" r="72"/><circle cx="-40" cy="-60" r="70"/>
+        <circle cx="35" cy="-62" r="70"/><circle cx="95" cy="-12" r="70"/>
+        <circle cx="60" cy="40" r="62"/><circle cx="-50" cy="42" r="62"/>
+        <rect x="20" y="70" width="40" height="70" rx="20"/>
+      </g>
+      <g fill="none" stroke="#c9407e" stroke-width="9" stroke-linecap="round" opacity="0.8">
+        <path d="M0 -110 C-12 -60 14 -20 0 30 C-8 60 6 80 0 95"/>
+        <path d="M-120 -10 C-90 -30 -70 10 -45 -15"/>
+        <path d="M-80 50 C-60 30 -40 60 -20 40"/>
+        <path d="M45 -90 C55 -60 90 -60 100 -40"/>
+        <path d="M40 10 C70 -10 100 20 130 5"/>
+      </g>
+      <!-- visual cortex at back of brain (rear = right side in this side view) -->
+      <circle id="cortex" cx="128" cy="20" r="30" fill="var(--yellow)" opacity="0.25" filter="url(#glow)"/>
+    </g>
+
+    <!-- step labels -->
+    <g id="label1"></g>
+    <g id="label2"></g>
+    <g id="label3"></g>
+    <g id="result"></g>
+  </g>
+</svg>
+</div></div>
+<div id="hint">Loops every 6s · click to restart</div>
+
+<script>
+(() => {
+const NS = "http://www.w3.org/2000/svg";
+const $ = id => document.getElementById(id);
+const DUR = 6;
+
+/* ---------- scale stage to window ---------- */
+function fit(){
+  const s = Math.min(innerWidth/1080, innerHeight/1920);
+  $("stage").style.transform = `scale(${s})`;
+}
+addEventListener("resize", fit); fit();
+
+/* ---------- helpers ---------- */
+const clamp = (v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const prog = (t,a,b)=>clamp((t-a)/(b-a));
+const easeOut = x=>1-Math.pow(1-x,3);
+const easeInOut = x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const backOut = x=>{const c1=1.9,c3=c1+1;return x<=0?0:1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);};
+function el(tag, attrs, parent){
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+
+/* pill: group anchored at (x,y); align 'start' | 'middle' */
+function pill(g, {x, y, text, color, size=42, dark=true, align="middle", caption=null}){
+  const inner = el("g", {}, g);
+  const pad = size*0.7, h = size*1.75;
+  const rect = el("rect", {rx:h/2, ry:h/2, height:h, fill:color, filter:"url(#glow)"}, inner);
+  const t = el("text", {"font-size":size, "font-weight":800, fill: dark?"#1a0838":"#fff",
+                        "dominant-baseline":"central", "text-anchor":"middle"}, inner);
+  t.textContent = text;
+  const w = t.getComputedTextLength() + pad*2;
+  const ox = align==="middle" ? -w/2 : 0;
+  rect.setAttribute("x", ox); rect.setAttribute("y", -h/2); rect.setAttribute("width", w);
+  t.setAttribute("x", ox + w/2); t.setAttribute("y", 2);
+  if (caption){
+    caption.forEach((line,i)=>{
+      const c = el("text", {x: align==="middle"?0:6, y: h/2 + 52 + i*46, "font-size":36, "font-weight":600,
+                            fill:"#e6dbff", "text-anchor": align==="middle"?"middle":"start"}, inner);
+      c.textContent = line;
+    });
+  }
+  // pivot: pop from pill's own center
+  const cx = ox + w/2;
+  g.dataset.x = x; g.dataset.y = y; g.dataset.cx = cx;
+  g.setAttribute("transform", `translate(${x} ${y}) scale(0)`);
+  return g;
+}
+function popAt(g, t, start, dur=0.45){
+  const p = prog(t, start, start+dur);
+  const s = backOut(p);
+  const x=+g.dataset.x, y=+g.dataset.y, cx=+g.dataset.cx;
+  g.setAttribute("transform", `translate(${x+cx} ${y}) scale(${s}) translate(${-cx} 0)`);
+  g.setAttribute("opacity", clamp(p*3));
+}
+
+/* ---------- build labels ---------- */
+pill($("tagWhite"), {x:330, y:540, text:"white light", color:"#fff6d6", size:28});
+pill($("tagNm"),    {x:880, y:800, text:"~650 nm", color:"var(--pink)", size:28});
+pill($("tagNerve"), {x:935, y:1410, text:"optic nerve", color:"var(--mint)", size:28});
+
+pill($("label1"), {x:80, y:775, align:"start", text:"1 · Light reflects", color:"var(--yellow)",
+  caption:["Apple absorbs most colors,","bounces back mostly red."]});
+pill($("label2"), {x:80, y:1290, align:"start", text:"2 · Cones respond", color:"var(--pink)",
+  caption:["Your retina has ~6 million cones","in 3 types. Red excites L most."]});
+pill($("label3"), {x:80, y:1730, align:"start", text:"3 · Brain compares", color:"var(--mint)",
+  caption:["Visual cortex reads the S/M/L mix."]});
+pill($("result"), {x:860, y:1610, text:"You see red!", color:"var(--pink)", size:38});
+
+/* ambient dots */
+const stars = $("stars");
+let seed = 7; const rnd = ()=>{seed=(seed*16807)%2147483647; return seed/2147483647;};
+const starData = [];
+for (let i=0;i<46;i++){
+  const c = ["#6ff5c8","#ff6fae","#ffd76a","#a99bff"][i%4];
+  const s = el("circle",{cx:rnd()*1080, cy:rnd()*1920, r:2+rnd()*4, fill:c, filter:"url(#glow)"}, stars);
+  starData.push({s, ph:rnd()*6.28});
+}
+
+/* beams */
+function prepBeam(id){ const p=$(id); const L=p.getTotalLength(); p.style.strokeDasharray=L; p.style.strokeDashoffset=L; return {p,L}; }
+const B1=prepBeam("beam1"), B2=prepBeam("beam2"), B3=prepBeam("beam3");
+function drawBeam(B, t, a, b){
+  const p = easeInOut(prog(t,a,b));
+  B.p.style.strokeDashoffset = B.L*(1-p);
+  return p;
+}
+/* travelling photon heads */
+const heads = [["#fff6d6",22],["var(--pink)",24],["var(--mint)",20]].map(([c,r])=>{
+  const g = el("g",{opacity:0}, $("all"));
+  el("circle",{r:r*1.8, fill:c, opacity:0.35, filter:"url(#soft)"}, g);
+  el("circle",{r, fill:c, filter:"url(#glow)"}, g);
+  el("circle",{r:r*0.45, fill:"#fff"}, g);
+  return g;
+});
+function moveHead(h, B, p, visible){
+  const pt = B.p.getPointAtLength(B.L*p);
+  h.setAttribute("transform", `translate(${pt.x} ${pt.y})`);
+  h.setAttribute("opacity", visible?1:0);
+}
+/* nerve pulses */
+const pulses = [0,1,2,3].map(()=>el("circle",{r:12, fill:"#eafff6", filter:"url(#glow)", opacity:0}, $("pulses")));
+
+/* ---------- render ---------- */
+function render(t){
+  // title
+  const tp = easeOut(prog(t,0,0.5));
+  $("title").setAttribute("opacity", tp);
+  $("title").setAttribute("transform", `translate(0 ${(1-tp)*-40})`);
+
+  // stars twinkle
+  starData.forEach(d=>d.s.setAttribute("opacity", 0.35+0.65*Math.abs(Math.sin(t*1.6+d.ph))));
+
+  // sun
+  const sp = backOut(prog(t,0.1,0.55));
+  $("sun").setAttribute("transform", `translate(190 420) scale(${sp})`);
+  $("sunRays").setAttribute("transform", `rotate(${t*30})`);
+
+  // beam 1: white light → apple
+  const b1 = drawBeam(B1,t,0.45,1.0);
+  moveHead(heads[0], B1, b1, t>0.45 && t<1.05);
+  popAt($("tagWhite"), t, 0.6, 0.35);
+
+  // apple reacts
+  const hit = prog(t,1.0,1.5);
+  const bump = Math.sin(hit*Math.PI);
+  $("apple").setAttribute("transform", `translate(600 570) scale(${1+0.08*bump})`);
+  $("appleHalo").setAttribute("opacity", 0.15 + 0.55*bump + 0.2*(t>1.5?1:0)*(0.5+0.5*Math.sin(t*5)));
+  popAt($("label1"), t, 1.15);
+
+  // beam 2: red light → eye
+  const b2 = drawBeam(B2,t,1.5,2.5);
+  moveHead(heads[1], B2, b2, t>1.5 && t<2.55);
+  popAt($("tagNm"), t, 1.85, 0.35);
+
+  // eye reacts
+  const eh = prog(t,2.45,2.9);
+  $("pupilFlash").setAttribute("opacity", Math.sin(eh*Math.PI)*0.9);
+  $("eye").setAttribute("transform", `translate(360 1090) scale(${1+0.05*Math.sin(eh*Math.PI)}) translate(-360 -1090)`);
+
+  // cone bars (approximate relative response to ~650 nm light: L >> M, S ≈ 0)
+  const cb = easeOut(prog(t,2.6,3.2));
+  const bars = [["barS",0.04],["barM",0.32],["barL",0.92]];
+  bars.forEach(([id,v])=>{
+    const h = 10 + 150*v*cb;
+    $(id).setAttribute("height", h);
+    $(id).setAttribute("y", 1160 - h);
+  });
+  popAt($("label2"), t, 3.0);
+
+  // beam 3: nerve signal → brain
+  const b3 = drawBeam(B3,t,3.4,4.3);
+  moveHead(heads[2], B3, b3, t>3.4 && t<4.35);
+  pulses.forEach((c,i)=>{
+    const st = 3.7 + i*0.18;
+    const p = ((t - st) / 0.7);
+    if (p>0 && p<1 && t<5.6){ const pt=B3.p.getPointAtLength(B3.L*p); c.setAttribute("cx",pt.x); c.setAttribute("cy",pt.y); c.setAttribute("opacity",1); }
+    else if (t>4.3 && t<5.6){ const p2=((t-4.3-i*0.25)%1+1)%1; const pt=B3.p.getPointAtLength(B3.L*p2); c.setAttribute("cx",pt.x); c.setAttribute("cy",pt.y); c.setAttribute("opacity",0.75); }
+    else c.setAttribute("opacity",0);
+  });
+  popAt($("tagNerve"), t, 3.7, 0.35);
+
+  // brain reacts
+  const bh = prog(t,4.3,4.8);
+  $("brain").setAttribute("transform", `translate(440 1575) scale(${1+0.07*Math.sin(bh*Math.PI)})`);
+  $("brainHalo").setAttribute("opacity", 0.1 + 0.5*Math.sin(bh*Math.PI) + (t>4.8?0.2:0));
+  $("cortex").setAttribute("opacity", 0.25 + 0.75*easeOut(prog(t,4.4,4.8)));
+  popAt($("label3"), t, 4.55);
+  popAt($("result"), t, 5.0, 0.5);
+
+  // loop fade
+  const fade = 1 - prog(t,5.75,6.0);
+  $("all").setAttribute("opacity", fade);
+}
+
+/* ---------- clock ---------- */
+const params = new URLSearchParams(location.search);
+const fixed = params.has("t") ? parseFloat(params.get("t")) : null;
+let start = performance.now();
+$("stage").addEventListener("click", ()=>{ start = performance.now(); });
+function frame(now){
+  const t = fixed!==null ? fixed : ((now-start)/1000) % DUR;
+  render(t);
+  if (fixed===null) requestAnimationFrame(frame);
+}
+setTimeout(()=>$("hint").style.opacity=0,4000);
+if (fixed!==null) render(fixed); else requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
